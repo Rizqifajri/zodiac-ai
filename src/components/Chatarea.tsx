@@ -1,12 +1,14 @@
 "use client"
 import { runGenerativeAI } from "@/lib/generativeApi";
 import { useState, useEffect } from "react"
+import MarkdownRenderer from "./MarkdownRenderer";
 
 export const Chatarea: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [botResponse, setBotResponse] = useState("");
   const [conversation, setConversation] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const instruction = 'you are a helpful bot.';
 
   const saveConversationToLocalStorage = (conversation: string[]) => {
     localStorage.setItem("conversation", JSON.stringify(conversation));
@@ -27,7 +29,7 @@ export const Chatarea: React.FC = () => {
       if (inputValue.trim() === "") return;
       setLoading(true);
       const previousConversation = conversation.join("\n");
-      const response = await runGenerativeAI(inputValue, previousConversation);
+      const response = await runGenerativeAI(inputValue, previousConversation, instruction);
       setBotResponse(response);
       const updatedConversation = [...conversation, `User: ${inputValue}`, `Bot: ${response}`];
       setConversation(updatedConversation);
@@ -62,23 +64,23 @@ export const Chatarea: React.FC = () => {
               {msg.startsWith("User:") ? "User" : "Bot"}
               <time className="text-xs opacity-50">{new Date().toLocaleTimeString()}</time>
             </div>
-            <div className="chat-bubble text-wrap">{msg.replace("User: ", "").replace("Bot: ", "")}</div>
+            <MarkdownRenderer content={msg.replace("User: ", "").replace("Bot: ", "")} className="chat-bubble text-wrap prose prose-invert" />
             <div className="chat-footer opacity-50">{msg.startsWith("User:") ? "Seen" : "Delivered"}</div>
           </div>
         ))}
       </div>
       <div className="flex gap-5 my-5 w-[370px] md:w-[900px]">
-        <input 
-          type="text" 
-          placeholder="Type here" 
-          className="input input-bordered w-full" 
-          value={inputValue} 
-          onChange={(e) => setInputValue(e.target.value)} 
-          onKeyPress={handleKeyPress} 
+        <input
+          type="text"
+          placeholder="Type here"
+          className="input input-bordered w-full"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyPress={handleKeyPress}
           disabled={loading}
         />
-        <button 
-          className={`btn btn-outline btn-primary ${loading ? "loading" : ""}`} 
+        <button
+          className={`btn btn-outline btn-primary ${loading ? "loading" : ""}`}
           onClick={handleSubmit}
           disabled={loading}
         >

@@ -11,11 +11,12 @@ const Title: React.FC = () => {
         className='text-[90px] text-center bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent'
         text='zodiacAI'
       />
+      <p> you can use it to build your next project or just chat with me</p>
       <Link
         href="/dashboard"
         className='mx-auto'
       >
-        <button type="button" className="btn w-[200px]  btn-outline btn-secondary">Meet Zodiac</button>
+        <button type="button" className="btn w-[200px] my-5  btn-outline btn-secondary">Meet Zodiac</button>
       </Link>
 
     </div>

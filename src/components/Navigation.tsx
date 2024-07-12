@@ -11,7 +11,7 @@ const Navigation: React.FC = () => {
 
   return (
     <section>
-      <div className="navbar fixed bg-base-100">
+      <div className="navbar fixed bg-base-100 z-50">
         <div className="flex-1">
           <Link href={'/'} className="btn btn-ghost text-xl">zodiacAI</Link>
         </div>
@@ -19,9 +19,9 @@ const Navigation: React.FC = () => {
           <ul className="menu menu-horizontal px-1">
             <li>
               <Link href={'/auth/signin'}>
-              Sign In
+                Sign In
               </Link>
-              </li>
+            </li>
             <li>
               <details>
                 <summary>Parent</summary>

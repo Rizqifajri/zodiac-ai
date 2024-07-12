@@ -7,7 +7,7 @@ import userAvatar from '@/assets/userprf.png';
 const BotForReact = ({ conversation }: { conversation: string[] }) => {
   return (
     <> <div className="chatarea w-[370px] md:w-[900px] h-[800px] mt-16 rounded-lg bg-[#121111] mx-auto p-5 overflow-y-scroll">
-      {conversation.map((msg, index) => (
+      {conversation?.map((msg, index) => (
         <div key={index} className={`chat ${msg.startsWith("User:") ? "chat-end" : "chat-start"}`}>
           <div className="chat-image avatar">
             <div className="w-10 rounded-full">

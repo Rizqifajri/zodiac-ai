@@ -1,73 +1,73 @@
-"use client"
+"use client";
 
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const SignIn: React.FC = () => {
   const [data, setData] = useState({
     email: '',
     password: ''
-  })
-  const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const result = await signIn('credentials', {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-    })
-    if (result?.error) {
-      setError(result.error)
-    } else {
-      router.push('/dashboard')
-    }
-  }
+    e.preventDefault();
+    setLoading(true);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData({
+    signIn("credentials", {
       ...data,
-      [e.target.name]: e.target.value
-    })
-  }
+      callbackUrl: "http://localhost:3000/dashboard",
+    });
+
+    setLoading(false);
+    console.log(data)
+
+    // if (result?.ok) {
+    //   router.push('/dashboard');
+    // } else if (result?.error) {
+    //   setError(result.error);
+    // } else {
+    //   setError('Login failed. Please check your email and password.');
+    // }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className='items-center flex flex-col'>
+    <form onSubmit={handleSubmit} className='items-center flex flex-col '>
       <h1 className='text-3xl text-center'>Sign In</h1>
       <p className='text-xl text-center mb-10'>Sign in to your account</p>
+      {error && <p className="text-red-500">{error}</p>}
       <div className='flex flex-col gap-5'>
         <input
           type="email"
-          name="email"
           placeholder="your@email"
           className="input input-bordered w-full"
           value={data.email}
-          onChange={handleChange}
+          onChange={(e) => setData({ ...data, email: e.target.value })}
         />
         <input
           type="password"
-          name="password"
           placeholder="your password"
           className="input input-bordered w-full"
           value={data.password}
-          onChange={handleChange}
+          onChange={(e) => setData({ ...data, password: e.target.value })}
         />
       </div>
-      {error && <p className='text-red-500'>{error}</p>}
       <button
         type='submit'
-        className='btn btn-outline btn-primary w-full my-2'
+        className={`btn btn-outline btn-primary w-full my-2 ${loading ? "loading" : ""}`}
+        disabled={loading}
       >
-        Sign In
+        {loading ? "Loading..." : "Sign In"}
       </button>
       <Link href={'/auth/signup'}>
         <p className='text-center'>Don't have an account? <span>Sign Up</span></p>
       </Link>
     </form>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;

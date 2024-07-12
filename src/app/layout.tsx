@@ -22,12 +22,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider session={session}>
-          <Navigation />
-        </Provider>
+
         <main>
-          {children}
+          <Provider session={session}>
+          <Navigation />
+          {children} 
+          </Provider>
         </main>
+
       </body>
     </html>
   );

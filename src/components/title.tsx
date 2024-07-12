@@ -1,5 +1,4 @@
 import React from 'react';
-import GradualSpacing from './magicui/gradual-spacing';
 import SparklesText from './magicui/sparkles-text';
 import Link from 'next/link';
 

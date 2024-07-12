@@ -1,15 +1,17 @@
+//api/user
+
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/db';
 import { getServerSession } from 'next-auth';
-import { options } from '@/lib/auth';
+import { authConfig } from '@/lib/auth';
 import bcrypt from 'bcrypt';
 
 
 export const GET = async (req: Request) => {
-  const session = await getServerSession(options);
-  if (!session) {
-    return new NextResponse('Unauthorized', { status: 401 });
-  }
+  // const session = await getServerSession(authConfig as any);
+  // if (!session) {
+  //   return new NextResponse('Unauthorized', { status: 401 });
+  // }
 
   try {
     const users = await prisma.user.findMany({
@@ -102,7 +104,7 @@ export const POST = async (req: Request) => {
 };
 
 export const PATCH = async (req: Request) => {
-  const session = await getServerSession(options);
+  const session = await getServerSession(authConfig as any);
   if (!session) {
     return new NextResponse('Unauthorized', { status: 401 });
   }

@@ -13,7 +13,7 @@ const Navigation: React.FC = () => {
     <section>
       <div className="navbar fixed bg-base-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">zodiacAI</a>
+          <Link href={'/'} className="btn btn-ghost text-xl">zodiacAI</Link>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">

@@ -1,10 +1,23 @@
+"use client"
 import Link from "next/link"
 import { Dropdown } from "./Dropdown"
 import Image from "next/image"
 import avatarUser from '@/assets/userprf.png'
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+import { signOut, useSession } from "next-auth/react"
 
 
 export const DashbaordHeader: React.FC = () => {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  console.log(session)
+
+  const handleLogout = async () => {
+   await signOut({redirect: false})
+    router.push('/auth/signin')
+  }
+
   return (
     <>
       <div className="navbar fixed bg-base-100 z-50">
@@ -30,12 +43,12 @@ export const DashbaordHeader: React.FC = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <li>
                 <a className="justify-between">
-                  Profile
+                  {session?.user?.name}
                   <span className="badge">New</span>
                 </a>
               </li>
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><p onClick={handleLogout}>Logout</p></li>
             </ul>
           </div>
         </div>

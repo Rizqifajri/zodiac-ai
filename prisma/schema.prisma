@@ -20,6 +20,7 @@ model Conversation {
   messages  String[]
   createAt  DateTime @default(now())
   updateAt  DateTime @updatedAt
+  type      String
 }
 
 model Account {
@@ -58,7 +59,6 @@ model User {
   password String?
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
-
   conversations Conversation[]
   sessions Session[]
   accounts Account[]

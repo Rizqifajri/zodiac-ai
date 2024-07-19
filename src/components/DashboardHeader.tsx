@@ -20,13 +20,16 @@ export const DashbaordHeader: React.FC = () => {
 
   return (
     <>
-      <div className="navbar fixed bg-base-100 z-50">
+      <div className="navbar fixed bg-base-100 z-50 gap-4">
         <div className="flex-1 gap-5">
           <Link
             href='/'
           >
             <p className="btn btn-ghost text-xl">zodiacAI</p>
           </Link>
+        </div>
+        <div>
+          <Link href={'/post'} className="btn btn-outline btn-info">Discuss Forums</Link>
         </div>
         <div className="flex-none gap-6">
           <Dropdown />

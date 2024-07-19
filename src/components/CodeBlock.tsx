@@ -4,7 +4,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark, dark, dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface CodeBlockProps {
-  node : any;
+  node: any;
   inline: any;
   className?: string;
   children: React.ReactNode;

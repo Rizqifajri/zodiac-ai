@@ -14,31 +14,31 @@ datasource db {
 }
 
 model Conversation {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  messages  String[]
-  createAt  DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  type      String
+  id       String   @id @default(uuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+  messages String[]
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  type     String
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
@@ -51,17 +51,19 @@ model Session {
 }
 
 model User {
-  id String @id @default(cuid())
-  name String?
-  email String @unique
+  id            String         @id @default(cuid())
+  name          String?
+  email         String         @unique
   emailVerified DateTime?
-  image String?
-  password String?
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  image         String?
+  password      String?
+  createAt      DateTime       @default(now())
+  updateAt      DateTime       @updatedAt
   conversations Conversation[]
-  sessions Session[]
-  accounts Account[]
+  sessions      Session[]
+  accounts      Account[]
+  post          Post[]
+  comments      Comment[]
 
   @@map("users")
 }
@@ -74,4 +76,24 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Post {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  authorId  String
+  author    User      @relation(fields: [authorId], references: [id])
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
 
+model Comment {
+  id       String   @id @default(cuid())
+  content  String
+  postId   String
+  post     Post     @relation(fields: [postId], references: [id])
+  authorId String
+  author   User     @relation(fields: [authorId], references: [id])
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}

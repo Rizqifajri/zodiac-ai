@@ -11,12 +11,21 @@ const Title: React.FC = () => {
         text='zodiacAI'
       />
       <p> you can use it to build your next project or just chat with me</p>
-      <Link
-        href="/dashboard"
-        className='mx-auto'
-      >
-        <button type="button" className="btn w-[200px] my-5  btn-outline btn-secondary">Meet Zodiac</button>
-      </Link>
+      <div className='flex gap-4'>
+        <Link
+          href="/post"
+          className='mx-auto'
+        >
+          <button type="button" className="btn w-[200px] my-5  btn-outline btn-secondary">Discuss with your friends</button>
+        </Link>
+        <Link
+          href="/dashboard"
+          className='mx-auto'
+        >
+          <button type="button" className="btn w-[200px] my-5  btn-outline btn-secondary">Meet Zodiac</button>
+        </Link>
+      </div>
+
 
     </div>
   );

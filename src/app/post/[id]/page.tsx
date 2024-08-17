@@ -49,7 +49,7 @@ const PostDetail = () => {
   return (
       <>
         <DashbaordHeader />
-        <div className='flex gap-5 mx-24'>
+        <div className='flex flex-col md:flex-row gap-5 mx-24'>
           <Profile />
           <div className="mt-28 flex-1  w-[500px]">
                 <div className='border border-gray-700 rounded-md p-5 mb-5 cursor-pointer'>
@@ -77,7 +77,7 @@ const PostDetail = () => {
                   </div>
                 </div>
           </div>
-          <div className="p-5 w-[500px]">
+          <div className="p-4 w-[500px]">
             <Comments postId={post.id} />
           </div>
         </div>

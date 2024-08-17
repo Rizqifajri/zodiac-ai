@@ -143,12 +143,12 @@ const Page = () => {
           </div>
         )
       }
-      <div className="mt-24 flex-1 p-5">
+      <div className="mt-24 flex-1 w-[500px] p-5">
         <div className='flex flex-col justify-start items-start gap-5'>
           <Link href="/dashboard" className="btn btn-outline rounded-full btn-secondary"><IoMdArrowRoundBack /></Link>
           <h1 className='text-center text-3xl font-bold mb-5'>Your Posts</h1>
         </div>
-        <div className='overflow-auto h-[100vh]'>
+        <div className='overflow-auto w-full h-[100vh]'>
           {posts?.map((post) => (
             <div className='border border-gray-800 rounded-md p-5 mb-5 cursor-pointer'>
               <div className="flex items-center gap-5 mb-5">

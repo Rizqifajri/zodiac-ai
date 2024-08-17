@@ -25,14 +25,6 @@ const SignIn: React.FC = () => {
 
     setLoading(false);
     console.log(data)
-
-    // if (result?.ok) {
-    //   router.push('/dashboard');
-    // } else if (result?.error) {
-    //   setError(result.error);
-    // } else {
-    //   setError('Login failed. Please check your email and password.');
-    // }
   };
 
   return (
@@ -64,7 +56,7 @@ const SignIn: React.FC = () => {
         {loading ? "Loading..." : "Sign In"}
       </button>
       <Link href={'/auth/signup'}>
-        <p className='text-center'>Don't have an account? <span>Sign Up</span></p>
+        <p className='text-center'>Don't have an account? <span className='text-primary underline'>Sign Up</span></p>
       </Link>
     </form>
   );

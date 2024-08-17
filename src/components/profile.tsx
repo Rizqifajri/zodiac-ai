@@ -12,9 +12,9 @@ const Profile = () => {
     <section className="flex flex-col">
       <div className="breadcrumbs text-sm mt-20">
         <ul>
-          <li><a>Home</a></li>
-          <li><a>Documents</a></li>
-          <li>Add Document</li>
+          <li><a>Discuss</a></li>
+          <li><a>Post</a></li>
+          <li>Add Post</li>
         </ul>
       </div>
       <div className='flex flex-col gap-5 p-2 border-2 rounded-lg border-none w-[300px] h-[80vh]'>

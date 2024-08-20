@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -29,11 +29,7 @@ interface Post {
 
 const Page = () => {
   const { data: session } = useSession();
-  const [data, setData] = useState({
-    title: '',
-    content: ''
-  });
-
+  const [data, setData] = useState({ title: '', content: '' });
   const [posts, setPosts] = useState<Post[]>([]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [trigger, setTrigger] = useState(false);
@@ -48,21 +44,11 @@ const Page = () => {
     try {
       const res = await fetch(`/api/posts?userId=${session?.user.id}`, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
-
-      if (!res.ok) {
-        throw new Error('Failed to fetch posts');
-      }
+      if (!res.ok) throw new Error('Failed to fetch posts');
       const result = await res.json();
-
-      setPosts(result.posts.filter(
-        (post: any) => (
-          post.authorId === userId
-        )
-      ));
+      setPosts(result.posts.filter((post: any) => post.authorId === userId));
     } catch (error) {
       console.log('Error:', error);
     }
@@ -72,30 +58,15 @@ const Page = () => {
     try {
       const res = await fetch(`/api/posts`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-
-      if (!res.ok) {
-        throw new Error('Failed to submit the form');
-      }
-
+      if (!res.ok) throw new Error('Failed to submit the form');
       const result = await res.json();
-      console.log('Success:', result);
-
-      // Tambahkan pos baru ke dalam daftar pos
       setPosts((prevPosts) => [...prevPosts, result.post]);
-
-      // Clear the form
       setData({ title: '', content: '' });
-
-      setToastMessage('Content submitted successfully!')
-      setTimeout(() => {
-        setToastMessage(null);
-      }, 3000);
-
+      setToastMessage('Content submitted successfully!');
+      setTimeout(() => setToastMessage(null), 3000);
     } catch (err) {
       console.error('Error:', err);
     } finally {
@@ -105,13 +76,10 @@ const Page = () => {
 
   const deleteContent = async (id: string) => {
     try {
-      const res = await fetch(`/api/posts/${id}`, {
+      await fetch(`/api/posts/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
-
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -133,24 +101,24 @@ const Page = () => {
   }
 
   return (
-    <section className='flex'>
-      {
-        toastMessage && (
-          <div className="toast toast-top toast-center fixed z-50 top-0">
-            <div className="alert alert-success">
-              <span>{toastMessage}</span>
-            </div>
+    <section className='flex flex-col md:flex-row gap-5 p-5 md:p-10'>
+      {toastMessage && (
+        <div className="toast toast-top toast-center fixed z-50 top-0">
+          <div className="alert alert-success">
+            <span>{toastMessage}</span>
           </div>
-        )
-      }
-      <div className="mt-24 flex-1 w-[500px] p-5">
-        <div className='flex flex-col justify-start items-start gap-5'>
-          <Link href="/dashboard" className="btn btn-outline rounded-full btn-secondary"><IoMdArrowRoundBack /></Link>
-          <h1 className='text-center text-3xl font-bold mb-5'>Your Posts</h1>
         </div>
-        <div className='overflow-auto w-full h-[100vh]'>
-          {posts?.map((post) => (
-            <div className='border border-gray-800 rounded-md p-5 mb-5 cursor-pointer'>
+      )}
+      <div className="flex-1 w-full md:w-2/3">
+        <div className='flex flex-col gap-5'>
+          <Link href="/dashboard" className="btn btn-outline rounded-full btn-secondary">
+            <IoMdArrowRoundBack />
+          </Link>
+          <h1 className='text-2xl md:text-3xl font-bold mb-5'>Your Posts</h1>
+        </div>
+        <div className='overflow-auto w-full h-[50vh] md:h-[70vh]'>
+          {posts.map((post) => (
+            <div key={post.id} className='border border-gray-800 rounded-md p-5 mb-5'>
               <div className="flex items-center gap-5 mb-5">
                 <Image
                   className='rounded-full'
@@ -159,28 +127,29 @@ const Page = () => {
                   width={56}
                   height={56}
                 />
-                <p className='text-lg font-semibold'>{post?.author?.name}</p>
-                <p className='text-[10px] font-semibold'>{new Date(post?.createdAt).toLocaleString()}</p>
+                <p className='text-lg font-semibold'>{post.author.name}</p>
+                <p className='text-[10px] font-semibold'>{new Date(post.createdAt).toLocaleString()}</p>
               </div>
               <div className='w-auto'>
-                <h1 className='text-3xl font-bold mb-5'>{post?.title}</h1>
-                <MarkdownRenderer content={post?.content} className='overflow-y-scroll text-wrap prose prose-invert' />
+                <h1 className='text-xl md:text-2xl font-bold mb-5'>{post.title}</h1>
+                <MarkdownRenderer content={post.content} className='overflow-y-scroll prose prose-invert' />
               </div>
-              <div className='flex mt-5'>
+              <div className='flex justify-between mt-5'>
                 <button className='btn flex items-center gap-2'>
-                  <FaRegComments className='text-3xl' />
-                  <span>{post?.comments?.length} Comments</span>
+                  <FaRegComments className='text-xl md:text-2xl' />
+                  <span>{post.comments.length} Comments</span>
                 </button>
-                <button onClick={() => handleDelete(post?.id)} className='btn btn-error btn-outline rounded-full ml-5'>Delete</button>
+                <button onClick={() => handleDelete(post.id)} className='btn btn-error btn-outline rounded-full'>
+                  Delete
+                </button>
               </div>
             </div>
-
           ))}
         </div>
       </div>
-      <form className='flex flex-col gap-5 p-5 mt-24' onSubmit={handleSubmit}>
-        <h1 className='text-3xl font-bold'>Posts Your Content </h1>
-        <p>You can write your content here! with your markdown set up.</p>
+      <form className='flex flex-col gap-5 w-full md:w-1/3 mt-10 md:mt-0' onSubmit={handleSubmit}>
+        <h1 className='text-xl md:text-2xl font-bold'>Post Your Content</h1>
+        <p>You can write your content here! with your markdown setup.</p>
         <input
           type="text"
           placeholder="Your title"
@@ -191,12 +160,13 @@ const Page = () => {
         <textarea
           onChange={(e) => setData({ ...data, content: e.target.value })}
           value={data.content}
-          className="textarea textarea-secondary w-[600px] h-[70vh]"
-          placeholder="Bio"
+          className="textarea textarea-secondary w-full h-40 md:h-60"
+          placeholder="Your content"
         />
-        <button type='submit' className='btn btn-primary'>Submit</button>
+        <button type='submit' className='btn btn-primary'>
+          Submit
+        </button>
       </form>
-
     </section>
   );
 };

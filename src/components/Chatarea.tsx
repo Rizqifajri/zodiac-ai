@@ -1,10 +1,10 @@
-"use client"
-import { runGenerativeAI } from "@/lib/generativeApi";
-import { useState, useEffect } from "react";
-import MarkdownRenderer from "./MarkdownRenderer";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import BotForReact from "@/components/BotForReact";
 import { useSession } from "next-auth/react";
+import MarkdownRenderer from "./MarkdownRenderer";
+import BotForReact from "@/components/BotForReact";
+import { runGenerativeAI } from "@/lib/generativeApi";
+import { IntroComponent } from "./IntroChat";
 
 export const Chatarea: React.FC = () => {
   const { data: session } = useSession();
@@ -63,8 +63,6 @@ export const Chatarea: React.FC = () => {
   };
 
   useEffect(() => {
-    // const storedConversation = getConversationFromLocalStorage();
-    // setConversation(storedConversation);
     const fetchConversation = async () => {
       try {
         const response = await fetch(`/api/conversations?${bot}`);
@@ -72,13 +70,10 @@ export const Chatarea: React.FC = () => {
           throw new Error('Failed to fetch conversation');
         }
         const data = await response.json();
-        console.log(data)
         setConversation(data.conversations);
-
       } catch (error) {
         console.error('Error fetching conversation:', error);
       }
-
     };
     fetchConversation();
   }, [bot]);
@@ -109,20 +104,19 @@ export const Chatarea: React.FC = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center items-center w-full h-screen">
+    <section className="flex flex-col justify-center items-center w-full h-screen px-4 md:px-8">
       {
         bot === 'react' ? <BotForReact conversation={conversation} /> :
           <>
-            <div className="chatarea w-[370px] md:w-[900px] h-[800px] mt-16 rounded-lg bg-[#121111] mx-auto p-5 overflow-y-scroll">
-
-              {!conversation ? <p className="text-center text-white text-3xl">Loading...</p> :
-                conversation?.map((msg, index) => (
+            <div className="chatarea w-full max-w-[370px] md:max-w-[900px] h-[80vh] md:h-[800px] mt-16 rounded-lg bg-[#121111] p-5 overflow-y-scroll">
+              {conversation.length === 0 ? (
+                <IntroComponent />
+              ) : (
+                conversation.map((msg, index) => (
                   <div key={index} className={`chat ${msg.startsWith("User:") ? "chat-end" : "chat-start"}`}>
                     <div className="chat-image avatar">
                       <div className="w-10 rounded-full">
-                        <img
-                          alt="Avatar"
-                          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                        <img alt="Avatar" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                       </div>
                     </div>
                     <div className="chat-header">
@@ -132,7 +126,8 @@ export const Chatarea: React.FC = () => {
                     <MarkdownRenderer content={msg.replace("User: ", "").replace("Bot: ", "")} className="chat-bubble text-wrap prose prose-invert" />
                     <div className="chat-footer opacity-50">{msg.startsWith("User:") ? "Seen" : "Delivered"}</div>
                   </div>
-                ))}
+                ))
+              )}
               {loading && (
                 <div className="chat chat-start">
                   <div className="chat-image avatar">
@@ -153,7 +148,7 @@ export const Chatarea: React.FC = () => {
           </>
       }
 
-      <div className="flex gap-5 my-5 w-[370px] md:w-[900px]">
+      <div className="flex gap-5 my-5 w-full max-w-[370px] md:max-w-[900px]">
         <input
           type="text"
           placeholder="Type here"

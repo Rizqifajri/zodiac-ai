@@ -17,7 +17,6 @@ export default function Dashboard() {
 
   return (
     <>
-      <DashbaordHeader />
       <Chatarea/>
     </>
   );

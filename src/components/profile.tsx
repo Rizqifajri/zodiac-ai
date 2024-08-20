@@ -6,10 +6,9 @@ import { useSession } from 'next-auth/react'
 
 const Profile = () => {
   const { data: session, status } = useSession()
-
-
+  
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col mx-auto">
       <div className="breadcrumbs text-sm mt-20">
         <ul>
           <li><a>Discuss</a></li>
@@ -17,8 +16,8 @@ const Profile = () => {
           <li>Add Post</li>
         </ul>
       </div>
-      <div className='flex flex-col gap-5 p-2 border-2 rounded-lg border-none w-[300px] h-[80vh]'>
-        <div className="w-24 mx-auto rounded-full p-2">
+      <div className='flex flex-col gap-5 p-2 border-2 rounded-lg border-none w-[200px] '>
+        <div className="w-16 mx-auto rounded-full p-2">
           <Image
             className='rounded-full'
             alt="Tailwind CSS Navbar component"
@@ -29,10 +28,9 @@ const Profile = () => {
           <Link
             href='/dashboard/postcontent'
           >
-            <button type='submit' className='btn btn-secondary w-full h-5 text-[12px]'>Create Content + </button>
+            <button type='submit' className='btn btn-secondary w-full text-[12px]'>Create Content + </button>
           </Link>
         </div>
-
       </div>
     </section>
   )

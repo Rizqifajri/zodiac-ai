@@ -4,7 +4,7 @@ import avatarUser from '@/assets/userprf.png'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
-const Profile = () => {
+export const Profile = () => {
   const { data: session, status } = useSession()
   
   return (
@@ -36,4 +36,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+

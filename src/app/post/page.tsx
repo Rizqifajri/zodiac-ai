@@ -1,6 +1,6 @@
 "use client";
 import { DashbaordHeader } from '@/components/DashboardHeader';
-import Profile from '@/components/Profile';
+import { Profile } from '@/components/Profile';
 import React, { useEffect, useState } from 'react';
 import avatarUser from '@/assets/userprf.png';
 import Image from 'next/image';

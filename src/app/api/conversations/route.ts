@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { Session } from "next-auth";
+import { Conversation } from "@prisma/client";
 
 export const POST = async (req: Request) => {
   const session: Session | null = await getServerSession(authConfig as any);
@@ -15,7 +16,6 @@ export const POST = async (req: Request) => {
     const { messages, type } = body;
 
     const conversation = await prisma.conversation.create({
-      // @ts-ignore
       data: {
         userId: session.user.id,
         messages,
@@ -43,7 +43,6 @@ export const POST = async (req: Request) => {
 };
 
 export const GET = async (req: NextRequest) => {
-  // @ts-ignore
   const bot = req.url.split("?")[1];
   try {
     const session: Session | null = await getServerSession(authConfig as any);
@@ -59,10 +58,10 @@ export const GET = async (req: NextRequest) => {
 
       console.log(conversations);
 
-      // @ts-ignore
-      let conversationsUser = [];
+      
+      let conversationsUser : any = [];
 
-      conversations.map((conversation) => {
+      conversations.map((conversation: Conversation) => {
         const messages = conversation.messages.map((message) => {
           conversationsUser.push(message);
         });
@@ -70,12 +69,11 @@ export const GET = async (req: NextRequest) => {
         return { messages };
       });
 
-      // @ts-ignore
+    
       console.log(conversationsUser);
       return NextResponse.json(
         {
           message: "Success Get Conversation",
-          // @ts-ignore
           conversations: conversationsUser,
         },
         { status: 200 }

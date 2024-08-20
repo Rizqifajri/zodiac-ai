@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { Session } from "next-auth";
-import { Conversation } from "@prisma/client";
 
 export const POST = async (req: Request) => {
   const session: Session | null = await getServerSession(authConfig as any);
@@ -58,18 +57,16 @@ export const GET = async (req: NextRequest) => {
 
       console.log(conversations);
 
-      
-      let conversationsUser : any = [];
+      let conversationsUser: any = [];
 
-      conversations.map((conversation: Conversation) => {
-        const messages = conversation.messages.map((message) => {
+      conversations.map((conversation: any) => {
+        const messages = conversation.messages.map((message : any) => {
           conversationsUser.push(message);
         });
 
         return { messages };
       });
 
-    
       console.log(conversationsUser);
       return NextResponse.json(
         {

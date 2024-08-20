@@ -6,7 +6,7 @@ import { FaRegComments } from 'react-icons/fa6';
 import Comments from '@/components/Comments';
 import { useParams, useRouter } from 'next/navigation';
 import { DashbaordHeader } from '@/components/DashboardHeader';
-import { Profile } from '../../../components/Profile'; 
+import { Profile } from '@/components/profile';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 interface Post {

@@ -1,13 +1,13 @@
 import { authConfig } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { Session } from "next-auth";
 
 export const POST = async (req: Request) => {
   const session: Session | null = await getServerSession(authConfig as any);
   if (!session || !session.user || !session.user.id) {
-    return new NextResponse("Unauthorized", { status: 401 });
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
   try {
@@ -42,7 +42,7 @@ export const POST = async (req: Request) => {
   }
 };
 
-export const GET = async (req: NextResponse) => {
+export const GET = async (req: NextRequest) => {
   // @ts-ignore
   const bot = req.url.split("?")[1];
   try {

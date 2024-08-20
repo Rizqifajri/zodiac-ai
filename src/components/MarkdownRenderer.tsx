@@ -12,17 +12,16 @@ interface MarkdownRendererProps {
   content: string;
 }
 
-const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({  className, content }) => {
+const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ className, content }) => {
   return (
-    <ReactMarkdown
-      children={content}
-      className={className}
-      remarkPlugins={[remarkMath]}
-      rehypePlugins={[rehypeKatex]}
-      components={{
-        code: CodeBlock as any ,
-      }}
-    />
+      <ReactMarkdown
+        className={className}
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[rehypeKatex]}
+        components={{
+          code: CodeBlock as any,
+        }}
+      >{content}</ReactMarkdown>
   );
 };
 

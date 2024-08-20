@@ -1,6 +1,5 @@
 
 import { PrismaClient } from "@prisma/client";
-import { currentUser } from "./extensions/current-user";
 
 export const prisma = new PrismaClient()
 

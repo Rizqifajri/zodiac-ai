@@ -1,13 +1,14 @@
 "use client";
-import Navigation from "@/components/Navigation";
+import ParticlesContainer from "@/components/particles/particlesContainer";
 import Title from "@/components/title";
-import Image from "next/image";
 
 export default function Home() {
   return (
-    <section className="h-screen">
-      <Navigation/>
-      <Title />
-    </section>
+    <>
+      <ParticlesContainer />
+      <section className="h-screen">
+        <Title />
+      </section>
+    </>
   );
 }

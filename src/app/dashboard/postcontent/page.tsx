@@ -127,7 +127,7 @@ const Page = () => {
                   width={56}
                   height={56}
                 />
-                <p className='text-lg font-semibold'>{post.author.name}</p>
+                <p className='text-lg font-semibold'>{post?.author?.name}</p>
                 <p className='text-[10px] font-semibold'>{new Date(post.createdAt).toLocaleString()}</p>
               </div>
               <div className='w-auto'>

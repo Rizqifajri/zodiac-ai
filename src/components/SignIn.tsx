@@ -56,7 +56,7 @@ const SignIn: React.FC = () => {
         {loading ? "Loading..." : "Sign In"}
       </button>
       <Link href={'/auth/signup'}>
-        <p className='text-center'>Don't have an account? <span className='text-primary underline'>Sign Up</span></p>
+        <p className='text-center'>Don&apos;t have an account?  <span className='text-primary underline'>Sign Up</span></p>
       </Link>
     </form>
   );

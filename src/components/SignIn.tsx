@@ -20,7 +20,7 @@ const SignIn: React.FC = () => {
 
     signIn("credentials", {
       ...data,
-      callbackUrl: "http://zodiac-ai.vercel.app/dashboard",
+      callbackUrl: "https://zodiac-ai.vercel.app/dashboard",
     });
 
     setLoading(false);

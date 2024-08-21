@@ -1,17 +1,12 @@
 //api/user
 
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/db';
-import { getServerSession } from 'next-auth';
-import { authConfig } from '@/lib/auth';
-import bcrypt from 'bcrypt';
-
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
+import bcrypt from "bcrypt";
 
 export const GET = async (req: Request) => {
-  // const session = await getServerSession(authConfig as any);
-  // if (!session) {
-  //   return new NextResponse('Unauthorized', { status: 401 });
-  // }
 
   try {
     const users = await prisma.user.findMany({
@@ -26,16 +21,16 @@ export const GET = async (req: Request) => {
         conversations: {
           select: {
             id: true,
-            messages : true,
-            createAt: true
-          }
+            messages: true,
+            createAt: true,
+          },
         },
         sessions: {
           select: {
             id: true,
             sessionToken: true,
-            expires: true
-          }
+            expires: true,
+          },
         },
         accounts: {
           select: {
@@ -49,14 +44,14 @@ export const GET = async (req: Request) => {
             token_type: true,
             scope: true,
             id_token: true,
-            session_state: true
-          }
-        }
-      }
+            session_state: true,
+          },
+        },
+      },
     });
     return NextResponse.json(
       {
-        message: 'Success Get User',
+        message: "Success Get User",
         users,
       },
       { status: 200 }
@@ -64,7 +59,7 @@ export const GET = async (req: Request) => {
   } catch (err) {
     return NextResponse.json(
       {
-        message: 'Failed Get User',
+        message: "Failed Get User",
         err,
       },
       { status: 500 }
@@ -87,7 +82,7 @@ export const POST = async (req: Request) => {
 
     return NextResponse.json(
       {
-        message: 'Success Create User',
+        message: "Success Create User",
         user,
       },
       { status: 201 }
@@ -95,7 +90,7 @@ export const POST = async (req: Request) => {
   } catch (err) {
     return NextResponse.json(
       {
-        message: 'Failed Create User',
+        message: "Failed Create User",
         err,
       },
       { status: 500 }
@@ -106,7 +101,7 @@ export const POST = async (req: Request) => {
 export const PATCH = async (req: Request) => {
   const session = await getServerSession(authConfig as any);
   if (!session) {
-    return new NextResponse('Unauthorized', { status: 401 });
+    return new NextResponse("Unauthorized", { status: 401 });
   }
 
   try {
@@ -122,7 +117,7 @@ export const PATCH = async (req: Request) => {
     });
     return NextResponse.json(
       {
-        message: 'Success Update User',
+        message: "Success Update User",
         updateUser,
       },
       { status: 200 }
@@ -130,7 +125,7 @@ export const PATCH = async (req: Request) => {
   } catch (err) {
     return NextResponse.json(
       {
-        message: 'Failed Update User',
+        message: "Failed Update User",
         err,
       },
       { status: 500 }
@@ -141,7 +136,7 @@ export const PATCH = async (req: Request) => {
 export const DELETE = async (req: Request) => {
   try {
     const url = new URL(req.url);
-    const id = url.searchParams.get('id');
+    const id = url.searchParams.get("id");
     await prisma.user.delete({
       where: {
         id: id as string,
@@ -149,14 +144,14 @@ export const DELETE = async (req: Request) => {
     });
     return NextResponse.json(
       {
-        message: 'Success Delete User',
+        message: "Success Delete User",
       },
       { status: 200 }
     );
   } catch (err) {
     return NextResponse.json(
       {
-        message: 'Failed Delete User',
+        message: "Failed Delete User",
         err,
       },
       { status: 500 }

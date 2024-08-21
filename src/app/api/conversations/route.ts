@@ -1,7 +1,7 @@
 import { authConfig } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/db";
 import { Session } from "next-auth";
 
 export const POST = async (req: Request) => {
@@ -60,7 +60,7 @@ export const GET = async (req: NextRequest) => {
       let conversationsUser: any = [];
 
       conversations.map((conversation: any) => {
-        const messages = conversation.messages.map((message : any) => {
+        const messages = conversation.messages.map((message: any) => {
           conversationsUser.push(message);
         });
 

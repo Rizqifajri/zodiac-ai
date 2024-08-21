@@ -1,21 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server';
-import  prisma  from '@/lib/db';
-import { getServerSession } from 'next-auth';
-import { authConfig } from '@/lib/auth';
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authConfig } from "@/lib/auth";
 
 // Handler for GET requests
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authConfig as any);
 
   if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
-  const postId = searchParams.get('postId');
+  const postId = searchParams.get("postId");
 
   if (!postId) {
-    return NextResponse.json({ error: 'Post ID is required' }, { status: 400 });
+    return NextResponse.json({ error: "Post ID is required" }, { status: 400 });
   }
 
   try {
@@ -26,7 +26,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ comments });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
@@ -35,14 +38,17 @@ export async function POST(req: NextRequest) {
   const session = await getServerSession(authConfig as any);
 
   if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
     const { postId, content } = await req.json();
 
     if (!postId || !content) {
-      return NextResponse.json({ error: 'Post ID and content are required' }, { status: 400 });
+      return NextResponse.json(
+        { error: "Post ID and content are required" },
+        { status: 400 }
+      );
     }
 
     const comment = await prisma.comment.create({
@@ -58,6 +64,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ comment }, { status: 201 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

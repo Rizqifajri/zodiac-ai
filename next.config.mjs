@@ -10,7 +10,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Permissions-Policy',
-            value: '', 
+            value: "interest-cohort=(), browsing-topics=(), join-ad-interest-group=(), run-ad-auction=(), private-state-token-redemption=(), private-state-token-issuance=()",
           },
         ],
       },

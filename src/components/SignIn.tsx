@@ -14,8 +14,7 @@ const SignIn: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     setLoading(true);
 
     signIn("credentials", {
@@ -28,7 +27,8 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='items-center flex flex-col '>
+    <section className='flex flex-col'>
+     <form onSubmit={handleSubmit} className='items-center flex flex-col '>
       <h1 className='text-3xl text-center'>Sign In</h1>
       <p className='text-xl text-center mb-10'>Sign in to your account</p>
       {error && <p className="text-red-500">{error}</p>}
@@ -48,17 +48,20 @@ const SignIn: React.FC = () => {
           onChange={(e) => setData({ ...data, password: e.target.value })}
         />
       </div>
-      <button
-        type='submit'
+      
+      <Link href={'/auth/signup'}>
+        <p className='text-center'>Don&apos;t have an account?  <span className='text-primary underline'>Sign Up</span></p>
+      </Link>
+    </form>
+    <button
+        onClick={handleSubmit}
         className={`btn btn-outline btn-primary w-full my-2 ${loading ? "loading" : ""}`}
         disabled={loading}
       >
         {loading ? "Loading..." : "Sign In"}
       </button>
-      <Link href={'/auth/signup'}>
-        <p className='text-center'>Don&apos;t have an account?  <span className='text-primary underline'>Sign Up</span></p>
-      </Link>
-    </form>
+    </section>
+   
   );
 };
 

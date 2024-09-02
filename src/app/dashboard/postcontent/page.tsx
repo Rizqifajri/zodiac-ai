@@ -103,7 +103,7 @@ const Page = () => {
   return (
     <section className='flex flex-col md:flex-row gap-5 p-5 md:p-10'>
       {toastMessage && (
-        <div className="toast toast-top toast-center fixed z-50 top-0">
+        <div className="toast toast-top toast-center fixed z-50">
           <div className="alert alert-success">
             <span>{toastMessage}</span>
           </div>
@@ -137,7 +137,7 @@ const Page = () => {
               <div className='flex justify-between mt-5'>
                 <button className='btn flex items-center gap-2'>
                   <FaRegComments className='text-xl md:text-2xl' />
-                  <span>{post.comments.length} Comments</span>
+                  <span>{post?.comments?.length} Comments</span>
                 </button>
                 <button onClick={() => handleDelete(post.id)} className='btn btn-error btn-outline rounded-full'>
                   Delete

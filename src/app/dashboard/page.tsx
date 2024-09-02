@@ -1,4 +1,4 @@
-"use server"
+"use client"
 import { Chatarea } from "@/components/Chatarea";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

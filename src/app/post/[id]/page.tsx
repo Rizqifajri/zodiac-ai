@@ -5,7 +5,6 @@ import avatarUser from '@/assets/userprf.png';
 import { FaRegComments } from 'react-icons/fa6';
 import Comments from '@/components/Comments';
 import { useParams, useRouter } from 'next/navigation';
-import { DashbaordHeader } from '@/components/DashboardHeader';
 import { Profile } from '@/components/profile';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
@@ -48,7 +47,6 @@ const PostDetail = () => {
 
   return (
     <>
-      <DashbaordHeader />
       <div className='flex flex-col md:flex-row gap-5 mx-24'>
         <Profile />
         <div className="mt-28 flex-1  w-[500px]">

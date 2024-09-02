@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { signOut, useSession } from "next-auth/react"
 
-export const DashbaordHeader: React.FC = () => {
+export const DashboardHeader: React.FC = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
 

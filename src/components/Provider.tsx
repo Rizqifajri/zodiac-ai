@@ -9,7 +9,7 @@ interface ProviderProps extends React.PropsWithChildren {
 
 export default function Provider({ children, session }: ProviderProps) {
   return (
-    <SessionProvider basePath="https://zodiac-ai.vercel.app/api/auth" session={session}>
+    <SessionProvider session={session}>
       {children}
     </SessionProvider>
   )

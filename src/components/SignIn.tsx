@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 const SignIn: React.FC = () => {
   const [data, setData] = useState({
@@ -11,7 +10,6 @@ const SignIn: React.FC = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,9 +17,8 @@ const SignIn: React.FC = () => {
 
     signIn("credentials", {
       ...data,
-      callbackUrl: "https://zodiac-ai.vercel.app/dashboard",
+      redirect: false,
     });
-
     setLoading(false);
     console.log(data)
   };

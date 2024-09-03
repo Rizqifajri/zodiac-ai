@@ -51,28 +51,28 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl;
-    },
+    // async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+    //   // Allows relative callback URLs
+    //   if (url.startsWith("/")) return `${baseUrl}${url}`;
+    //   // Allows callback URLs on the same origin
+    //   else if (new URL(url).origin === baseUrl) return url;
+    //   return baseUrl;
+    // },
     session: async ({ session, token }: { session: any; token: any }) => {
       if (session?.user) {
         session.user.id = token.sub;
       }
       return session;
     },
-    jwt: async ({ user, token }: { user: any; token: any }) => {
-      if (user) {
-        token.uid = user.id;
-      }
-      return token;
-    },
+    // jwt: async ({ user, token }: { user: any; token: any }) => {
+    //   if (user) {
+    //     token.uid = user.id;
+    //   }
+    //   return token;
+    // },
   },
-  secret: process.env.NEXTAUTH_SECRET,
-  trustHost: true,
+  // secret: process.env.NEXTAUTH_SECRET,
+  // trustHost: true,
 };
 
 export const getAuthSession = () => getServerSession(authConfig as any);

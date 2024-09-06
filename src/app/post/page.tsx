@@ -1,5 +1,5 @@
 "use client";
-import {Profile} from '@/components/profile';
+import { Profile } from '@/components/profile';
 import React, { useEffect, useState } from 'react';
 import avatarUser from '@/assets/userprf.png';
 import Image from 'next/image';
@@ -83,10 +83,13 @@ const Page = () => {
                     <MarkdownRenderer content={post.content} className='text-sm prose prose-invert' />
                   </div>
                   <div className='flex mt-5'>
-                    <button className='btn btn-secondary flex items-center gap-2 text-sm'>
-                      <FaRegComments className='text-xl' />
-                      <span>{post.comments?.length} Comments</span>
-                    </button>
+                    <Link href={`/post/${post.id}`}>
+                      <button className='btn btn-secondary flex items-center gap-2 text-sm'>
+                        <FaRegComments className='text-xl' />
+                        <span>{post.comments?.length} Comments</span>
+                      </button>
+                    </Link>
+
                   </div>
                 </div>
               </Link>

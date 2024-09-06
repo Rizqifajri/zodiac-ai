@@ -83,13 +83,10 @@ const Page = () => {
                     <MarkdownRenderer content={post.content} className='text-sm prose prose-invert' />
                   </div>
                   <div className='flex mt-5'>
-                    <Link href={`/post/${post.id}`}>
-                      <button className='btn btn-secondary flex items-center gap-2 text-sm'>
-                        <FaRegComments className='text-xl' />
-                        <span>{post.comments?.length} Comments</span>
-                      </button>
-                    </Link>
-
+                    <button className='btn btn-secondary flex items-center gap-2 text-sm'>
+                      <FaRegComments className='text-xl' />
+                      <span>{post.comments?.length} Comments</span>
+                    </button>
                   </div>
                 </div>
               </Link>
